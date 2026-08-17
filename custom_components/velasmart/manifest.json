@@ -1,10 +1,10 @@
 {
   "domain": "velasmart",
   "name": "VelaSmart",
-  "version": "0.1.0",
   "codeowners": ["@liulijun2019"],
   "config_flow": true,
   "documentation": "https://github.com/liulijun2019/velasmart",
+  "iot_class": "cloud_polling",
   "issue_tracker": "https://github.com/liulijun2019/velasmart/issues",
-  "iot_class": "cloud_polling"
+  "version": "0.1.0"
 }
