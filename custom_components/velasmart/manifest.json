@@ -1,6 +1,7 @@
 {
   "domain": "velasmart",
   "name": "VelaSmart",
+  "version": "0.1.0",
   "codeowners": ["@liulijun2019"],
   "config_flow": true,
   "documentation": "https://github.com/liulijun2019/velasmart",
