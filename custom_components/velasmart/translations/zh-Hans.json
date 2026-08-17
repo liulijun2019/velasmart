@@ -1,0 +1,30 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "连接 VelaSmart",
+        "description": "请输入您的 VelaSmart 账号凭据。",
+        "data": {
+          "username": "用户名",
+          "password": "密码"
+        }
+      },
+      "reauth_confirm": {
+        "title": "重新认证 VelaSmart",
+        "description": "更新您的 VelaSmart 账号凭据。",
+        "data": {
+          "username": "用户名",
+          "password": "密码"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "用户名或密码错误",
+      "unknown": "发生未知错误"
+    },
+    "abort": {
+      "already_configured": "该账号已配置",
+      "reauth_successful": "重新认证成功"
+    }
+  }
+}
