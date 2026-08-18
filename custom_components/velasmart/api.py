@@ -11,13 +11,13 @@ import aiohttp
 _LOGGER = logging.getLogger(__name__)
 
 AUTH_URL = (
-    "https://wly87bcr9j.execute-api.cn-north-1.amazonaws.com.cn/prod/assistantLogin"
+    "https://aize2kydb3.execute-api.us-east-1.amazonaws.com/prod/assistantLogin"
 )
 DEVICE_LIST_URL = (
-    "https://wly87bcr9j.execute-api.cn-north-1.amazonaws.com.cn/prod/findDeviceByAccount"
+    "https://aize2kydb3.execute-api.us-east-1.amazonaws.com/prod/findDeviceByAccount"
 )
 SEND_ORDER_URL = (
-    "https://wly87bcr9j.execute-api.cn-north-1.amazonaws.com.cn/prod/assistantSendOrder"
+    "https://aize2kydb3.execute-api.us-east-1.amazonaws.com/prod/assistantSendOrder"
 )
 
 TIMEOUT = aiohttp.ClientTimeout(total=10)
