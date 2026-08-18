@@ -112,7 +112,7 @@ class VelaSmartApiClient:
                         "id": device.get("deviceId", ""),
                         "name": device.get("deviceName", "VelaSmart Curtain"),
                         "gateway_mac": device.get("gatewayMac", ""),
-                        "device_type": device.get("deviceType", "curtain"),
+                        "device_type": device.get("deviceType", 3),
                         "position": position,
                         "is_closed": position == 0,
                         "online": device.get("onlineStatus", 0) == 1,
@@ -121,7 +121,9 @@ class VelaSmartApiClient:
                 )
         return devices
 
-    async def send_command(self, device_id: str, position: int) -> None:
+    async def send_command(
+        self, device_id: str, curtain_type: int, position: int
+    ) -> None:
         """Send a position command to the given device."""
         if not self._token:
             await self.authenticate()
@@ -132,8 +134,8 @@ class VelaSmartApiClient:
                 headers={"token": self._token},
                 data={
                     "deviceId": device_id,
-                    "curtainType": 3,
-                    "operateCode": None,
+                    "curtainType": curtain_type,
+                    "operateCode": 3,
                     "angle": 0,
                     "position": position,
                 },

@@ -55,6 +55,7 @@ class VelaSmartCover(CoordinatorEntity, CoverEntity):
         super().__init__(coordinator)
         self._client = client
         self._device_id: str = device["id"]
+        self._curtain_type: int = device["device_type"]
         self._attr_unique_id = device["id"]
         self._attr_name = device["name"]
         self._update_from_device(device)
@@ -84,7 +85,7 @@ class VelaSmartCover(CoordinatorEntity, CoverEntity):
 
     async def async_open_cover(self, **kwargs: Any) -> None:
         """Open the curtain."""
-        await self._client.send_command(self._device_id, 100)
+        await self._client.send_command(self._device_id, self._curtain_type, 100)
         self._attr_current_cover_position = 100
         self._attr_is_opening = True
         self.async_write_ha_state()
@@ -92,7 +93,7 @@ class VelaSmartCover(CoordinatorEntity, CoverEntity):
 
     async def async_close_cover(self, **kwargs: Any) -> None:
         """Close the curtain."""
-        await self._client.send_command(self._device_id, 0)
+        await self._client.send_command(self._device_id, self._curtain_type, 0)
         self._attr_current_cover_position = 0
         self._attr_is_closing = True
         self.async_write_ha_state()
@@ -103,7 +104,7 @@ class VelaSmartCover(CoordinatorEntity, CoverEntity):
         position = kwargs.get(ATTR_POSITION)
         if position is None:
             return
-        await self._client.send_command(self._device_id, position)
+        await self._client.send_command(self._device_id, self._curtain_type, position)
         self._attr_current_cover_position = position
         self.async_write_ha_state()
         await self.coordinator.async_request_refresh()
