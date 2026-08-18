@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import binascii
 import logging
 from typing import Any
 
@@ -122,42 +121,25 @@ class VelaSmartApiClient:
                 )
         return devices
 
-    async def send_command(
-        self, device_id: str, gateway_mac: str, position: int
-    ) -> None:
+    async def send_command(self, device_id: str, position: int) -> None:
         """Send a position command to the given device."""
         if not self._token:
             await self.authenticate()
 
-        order = self._build_order(device_id, position)
         try:
             result = await self._post(
                 SEND_ORDER_URL,
                 headers={"token": self._token},
-                data={"deviceId": gateway_mac, "order": order},
+                data={
+                    "deviceId": device_id,
+                    "curtainType": 3,
+                    "operateCode": None,
+                    "angle": 0,
+                    "position": position,
+                },
             )
         except aiohttp.ClientError as err:
             raise VelaSmartApiError(f"Network error: {err}") from err
 
         if result.get("code") != 200:
             raise VelaSmartApiError(f"Command failed: {result}")
-
-    @staticmethod
-    def _build_order(device_id: str, position: int) -> str:
-        """Build the hex command payload for a device position change."""
-        hex_device = binascii.hexlify(device_id.encode("utf-8")).decode("ascii")
-        hex_height = f"{position:02X}"
-        res = f"01 {hex_device} 02 {hex_height}"
-        res_compact = res.replace(" ", "")
-        length = len(res_compact.encode("ascii")) // 2
-        hex_length = f"{length:02X}"
-        order = f"4A640040FF{hex_length}00{res_compact}"
-        return order + VelaSmartApiClient._make_checksum(order)
-
-    @staticmethod
-    def _make_checksum(data: str) -> str:
-        """Calculate the byte checksum appended to a command."""
-        if not data:
-            return ""
-        total = sum(int(data[i : i + 2], 16) for i in range(0, len(data), 2))
-        return f"{total % 256:02X}"
