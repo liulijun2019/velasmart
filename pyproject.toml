@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "velasmart"
+version = "0.1.0"
+description = "Asyncio client for the VelaSmart cloud API"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "VelaSmart" }]
+keywords = ["velasmart", "curtain", "homeassistant"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = ["aiohttp>=3.8"]
+
+[project.urls]
+Homepage = "https://github.com/liulijun2019/velasmart"
+Repository = "https://github.com/liulijun2019/velasmart"
+
+[tool.setuptools.packages.find]
+include = ["velasmart*"]
